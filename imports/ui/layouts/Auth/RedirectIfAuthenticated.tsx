@@ -1,12 +1,11 @@
 import React, { memo, PropsWithChildren, useEffect } from "react";
-import { Meteor } from "meteor/meteor";
 import { useNavigate } from 'react-router-dom';
 import { Route } from "/imports/config/routes";
-import { useTracker } from "meteor/react-meteor-data";
+import useUser from "/imports/hooks/useUser";
 
 const RedirectIfAuthenticated = ({ children }: PropsWithChildren) => {
     const navigate = useNavigate();
-    const user = useTracker(() => Meteor.user());
+    const { user, isLoading } = useUser();
 
     const userId = user?._id;
 
@@ -16,7 +15,7 @@ const RedirectIfAuthenticated = ({ children }: PropsWithChildren) => {
         }
     }, [userId]);
 
-    if (Meteor.loggingIn() || Meteor.loggingOut()) {
+    if (isLoading) {
         return (
             <div>Loading...</div>
         );
