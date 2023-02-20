@@ -1,17 +1,8 @@
-import { Meteor } from "meteor/meteor";
-import React, { memo, useEffect } from "react";
-import { Form, useActionData, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { memo } from "react";
+import { Form, useLocation } from "react-router-dom";
 
 const Auth = () => {
     const location = useLocation();
-    const error = useActionData() as Meteor.Error;
-
-    useEffect(() => {
-        if (error?.reason) {
-            toast.error(error.reason);
-        }
-    }, [error?.reason]);
 
     return (
         <Form method="post">

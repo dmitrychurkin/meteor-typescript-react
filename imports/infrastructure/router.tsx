@@ -1,6 +1,8 @@
 import React from 'react';
 import { createBrowserRouter, redirect } from "react-router-dom";
+
 import withFormData from '/imports/util/withFormData';
+
 import { authenticate, AuthenticateUser } from '/imports/api/user';
 
 import Root from "/imports/ui/layouts/Root";
@@ -30,16 +32,12 @@ const router = createBrowserRouter([
                     password,
                     redirect: redirectTo
                 }) => {
-                    try {
-                        await authenticate({
-                            email,
-                            password
-                        });
+                    await authenticate({
+                        email,
+                        password
+                    });
 
-                        return redirect(redirectTo || Route.Root);
-                    }catch(error) {
-                        return error;
-                    }
+                    return redirect(redirectTo || Route.Root);
                 }),
                 path: Route.Login,
                 element: (
