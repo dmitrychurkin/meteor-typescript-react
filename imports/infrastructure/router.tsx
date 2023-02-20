@@ -10,44 +10,49 @@ import { Protected, RedirectIfAuthenticated } from '/imports/ui/layouts/Auth';
 
 import Home from "/imports/ui/screens/Home";
 import Login from "/imports/ui/screens/Login";
-
 import { Route } from '/imports/config/routes';
 
-const router = createBrowserRouter([
-    {
-        path: Route.Root,
-        element: <Root />,
-        children: [
-            {
-                index: true,
-                element: (
-                    <Protected>
-                        <Home />
-                    </Protected>
-                )
-            },
-            {
-                action: withFormData<AuthenticateUser>(async ({
-                    email,
-                    password,
-                    redirect: redirectTo
-                }) => {
-                    await authenticate({
-                        email,
-                        password
-                    });
-
-                    return redirect(redirectTo || Route.Root);
-                }),
-                path: Route.Login,
-                element: (
-                    <RedirectIfAuthenticated>
-                        <Login />
-                    </RedirectIfAuthenticated>
-                )
-            }
-        ]
+export class Router {
+    public static route(r: Route) {
+        return `/${r}`;
     }
-]);
 
-export default router;
+    public static get browserRouter() {
+        return createBrowserRouter([
+            {
+                path: this.route(Route.Root),
+                element: <Root />,
+                children: [
+                    {
+                        index: true,
+                        element: (
+                            <Protected>
+                                <Home />
+                            </Protected>
+                        )
+                    },
+                    {
+                        action: withFormData<AuthenticateUser>(async ({
+                            email,
+                            password,
+                            redirect: redirectTo
+                        }) => {
+                            await authenticate({
+                                email,
+                                password
+                            });
+
+                            return redirect(redirectTo || this.route(Route.Root));
+                        }),
+                        path: this.route(Route.Login),
+                        element: (
+                            <RedirectIfAuthenticated>
+                                <Login />
+                            </RedirectIfAuthenticated>
+                        )
+                    }
+                ]
+            }
+        ]);
+    }
+}

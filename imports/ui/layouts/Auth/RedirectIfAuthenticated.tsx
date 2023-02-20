@@ -2,6 +2,7 @@ import React, { memo, PropsWithChildren, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Route } from "/imports/config/routes";
 import useUser from "/imports/hooks/useUser";
+import { Router } from "/imports/infrastructure/router";
 
 const RedirectIfAuthenticated = ({ children }: PropsWithChildren) => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const RedirectIfAuthenticated = ({ children }: PropsWithChildren) => {
 
     useEffect(() => {
         if (userId) {
-            navigate(Route.Root, { replace: true });
+            navigate(Router.route(Route.Root), { replace: true });
         }
     }, [userId]);
 
