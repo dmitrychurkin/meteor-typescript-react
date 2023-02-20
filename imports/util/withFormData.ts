@@ -8,7 +8,7 @@ export default function withFormData<TInput, TResponse = Response>(
         const { request } = actionArgs;
         const formData = await request.formData();
 
-        return await fn(
+        return fn(
             Object.fromEntries(formData.entries()) as TInput,
             actionArgs
         );
