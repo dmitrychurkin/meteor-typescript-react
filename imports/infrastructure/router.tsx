@@ -37,7 +37,9 @@ export class Router {
                     )
                 },
                 {
-                    action: withFormData<AuthenticateUser>(async ({
+                    action: withFormData<
+                        AuthenticateUser & { readonly redirect?: string; }
+                    >(async ({
                         email,
                         password,
                         redirect: redirectTo

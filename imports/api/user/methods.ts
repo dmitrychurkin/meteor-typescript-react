@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 export type AuthenticateUser = {
     readonly email: string;
     readonly password: string;
-    readonly redirect?: string;
 };
 
 export const authenticate = ({ email, password }: AuthenticateUser) =>
