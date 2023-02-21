@@ -1,8 +1,8 @@
 import React, { memo, PropsWithChildren } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { Route } from "/imports/config/routes";
+import { Route } from "/imports/config/enums";
 import useUser from "/imports/hooks/useUser";
-import { Router } from "/imports/infrastructure/router";
+import { route } from "/imports/infrastructure/router";
 
 const Protected = ({ children }: PropsWithChildren) => {
     const location = useLocation();
@@ -17,7 +17,7 @@ const Protected = ({ children }: PropsWithChildren) => {
     if (!user) {
         return (
             <Navigate
-                to={Router.route(Route.Login)}
+                to={route(Route.Login)}
                 replace
                 state={{ from: location }}
             />

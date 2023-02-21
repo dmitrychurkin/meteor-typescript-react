@@ -1,7 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Meteor } from 'meteor/meteor';
-import { Role } from '/imports/config/roles';
+import { Role } from '/imports/config/enums';
 
 // TODO: write down rollbacks
 Migrations.add({

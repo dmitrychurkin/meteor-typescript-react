@@ -3,3 +3,8 @@ export const enum Role {
     Admin = 'ADMIN',
     User = 'USER'
 }
+
+export const enum Route {
+    Root = '',
+    Login = 'login'
+}
